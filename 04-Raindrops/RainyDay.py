@@ -5,6 +5,7 @@ import random  # Note this!
 
 
 class Raindrop:
+
     def __init__(self, screen, x, y):
         """ Creates a Raindrop sprite that travels down at a random speed. """
 
@@ -12,30 +13,35 @@ class Raindrop:
         self.screen = screen
         self.x = x
         self.y = y
-        self.speed = random.randint(5, 15)
+        self.speed = random.randint(5, 10)
+        self.color = pygame.color.Color((26, 83, 91))
 
-        pass
 
     def move(self):
         """ Move the self.y value of the Raindrop down the screen (y increase) at the self.speed. """
-        # TODO 11: Change the  y  position of this Raindrop by its speed.
-        pass
+
+        # DONE 11: Change the  y  position of this Raindrop by its speed.
+        self.y += self.speed
 
     def off_screen(self):
+
         """ Returns true if the Raindrop y value is not shown on the screen, otherwise false. """
+
         # Note: this will be used for testing, but not used in the final version of the code for the sake of simplicity.
-        # TODO 13: Return  True  if the  y  position of this Raindrop is greater than 800.
-        pass
+        # DONE 13: Return  True  if the  y  position of this Raindrop is greater than 800.
+        return self.y > self.screen.get_height()
 
     def draw(self):
-        """ Draws this sprite onto the screen. """
-        # TODO 9: Draw a vertical line that is 5 pixels long, 2 pixels thick,
-        #      from the current position of this Raindrop (use either a black or blue color).
 
-        pass
+        """ Draws this sprite onto the screen. """
+
+        # DONE 9: Draw a vertical line that is 5 pixels long, 2 pixels thick,
+        #      from the current position of this Raindrop (use either a black or blue color).
+        pygame.draw.line(self.screen, self.color, (self.x, self.y), (self.x, self.y+5), 2)
 
 
 class Hero:
+
     def __init__(self, screen, x, y, with_umbrella_filename, without_umbrella_filename):
         """ Creates a Hero sprite (Mike) that does not move. If hit by rain he'll put up his umbrella. """
         # TODO 16: Initialize this Hero, as follows:
@@ -64,6 +70,7 @@ class Hero:
 
 
 class Cloud:
+
     def __init__(self, screen, x, y, image_filename):
         """ Creates a Cloud sprite that will produce Raindrop objects.  The cloud will be moving around. """
         # TODO 24: Initialize this Cloud, as follows:
@@ -90,10 +97,12 @@ class Cloud:
 
 
 def main():
+
     """ Main game loop that creates the sprite objects, controls interactions, and draw the screen. """
+
     # DONE 1: Initialize the game, display a caption, and set   screen   to a 1000x600 Screen.
     pygame.init()
-    
+
     pygame.display.set_caption("Mike and Alyssa's Rainy Day")
 
     screen = pygame.display.set_mode((1000, 600))
@@ -115,7 +124,7 @@ def main():
 
         # DONE 4:   Make the pygame.QUIT event stop the game.
         for event in pygame.event.get():
-            
+
             if event.type == pygame.QUIT:
                 sys.exit()
 
@@ -132,9 +141,15 @@ def main():
         screen.fill((255, 255, 255))
 
         # --- begin area of test_drop code that will be removed later
-        # TODO 12: As a temporary test, move test_drop
+        # DONE 12: As a temporary test, move test_drop
+        test_drop.move()
+
         # TODO 14: As a temporary test, check if test_drop is off screen, if so reset the y position to 10
-        # TODO 10: As a temporary test, draw test_drop
+        if test_drop.off_screen():
+            test_drop.y = 10
+
+        # DONE 10: As a temporary test, draw test_drop
+        test_drop.draw()
 
         # TODO 20: As a temporary test, check if test_drop is hitting Mike (or Alyssa), if so set their last_hit_time
         # TODO 22: Remove the code that reset the y of the test_drop when off_screen()
