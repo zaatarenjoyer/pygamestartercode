@@ -7,11 +7,13 @@ import random  # Note this!
 class Raindrop:
     def __init__(self, screen, x, y):
         """ Creates a Raindrop sprite that travels down at a random speed. """
-        # TODO 8: Initialize this Raindrop, as follows:
-        #     - Store the screen.
-        #     - Set the initial position of the Raindrop to x and y.
-        #     - Set the initial speed to a random integer between 5 and 15.
-        #   Use instance variables:   screen  x  y  speed.
+
+        # DONE 8: Initialize this Raindrop
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.speed = random.randint(5, 15)
+
         pass
 
     def move(self):
@@ -29,6 +31,7 @@ class Raindrop:
         """ Draws this sprite onto the screen. """
         # TODO 9: Draw a vertical line that is 5 pixels long, 2 pixels thick,
         #      from the current position of this Raindrop (use either a black or blue color).
+
         pass
 
 
@@ -98,7 +101,9 @@ def main():
     # DONE 2: Make a Clock
     clock = pygame.time.Clock()
 
-    # TODO 7: As a temporary test, make a new Raindrop called test_drop at x=320 y=10
+    # DONE 7: As a temporary test, make a new Raindrop called test_drop at x=320 y=10
+    test_drop = Raindrop(screen, 320, 10)
+
     # TODO 15: Make a Hero, named mike, with appropriate images, starting at position x=200 y=400.
     # TODO 15: Make a Hero, named alyssa, with appropriate images, starting at position x=700 y=400.
     # TODO 23: Make a Cloud, named cloud, with appropriate images, starting at position x=300 y=50.
@@ -149,9 +154,9 @@ def main():
 
         # TODO 18: Draw the Heroes (Mike and Alyssa)
 
-        # TODO 6: Update the display and remove the pass statement below
+        # DONE 6: Update the display and remove the pass statement below
         pygame.display.update()
-        
+
     pass
 
 
