@@ -43,6 +43,7 @@ class Raindrop:
 class Hero:
 
     def __init__(self, screen, x, y, with_umbrella_filename, without_umbrella_filename):
+
         """ Creates a Hero sprite (Mike) that does not move. If hit by rain he'll put up his umbrella. """
         # TODO 16: Initialize this Hero, as follows:
         #     - Store the screen.
@@ -72,6 +73,7 @@ class Hero:
 class Cloud:
 
     def __init__(self, screen, x, y, image_filename):
+
         """ Creates a Cloud sprite that will produce Raindrop objects.  The cloud will be moving around. """
         # TODO 24: Initialize this Cloud, as follows:
         #     - Store the screen.
@@ -83,11 +85,13 @@ class Cloud:
         pass
 
     def draw(self):
+
         """ Draws this sprite onto the screen. """
         # TODO 25: Draw (blit) this Cloud's image at its current position.
         pass
 
     def rain(self):
+
         """ Adds a Raindrop to the array of raindrops so that it looks like the Cloud is raining. """
         # TODO 28: Append a new Raindrop to this Cloud's list of raindrops,
         #     where the new Raindrop starts at:
@@ -144,7 +148,7 @@ def main():
         # DONE 12: As a temporary test, move test_drop
         test_drop.move()
 
-        # TODO 14: As a temporary test, check if test_drop is off screen, if so reset the y position to 10
+        # DONE 14: As a temporary test, check if test_drop is off screen, if so reset the y position to 10
         if test_drop.off_screen():
             test_drop.y = 10
 
