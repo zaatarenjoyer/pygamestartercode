@@ -221,7 +221,5 @@ def main():
         # DONE 6: Update the display and remove the pass statement below
         pygame.display.update()
 
-    pass
-
 
 main()
