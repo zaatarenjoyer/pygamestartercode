@@ -43,40 +43,27 @@ class Raindrop:
 class Hero:
 
     def __init__(self, screen, x, y, with_umbrella_filename, without_umbrella_filename):
-
         """ Creates a Hero sprite (Mike) that does not move. If hit by rain he'll put up his umbrella. """
-        # DONE 16: Initialize this Hero, as follows:
-        #     - Store the screen.
-        #     - Set the initial position of this Hero to x and y.
-        #     - Create an image of this Hero WITH    an umbrella to the given with_umbrella_filename.
-        #     - Create an image of this Hero WITHOUT an umbrella to the given without_umbrella_filename.
-        #     - Set the "last hit time" to 0.
-        #   Use instance variables:
-        #      screen  x  y  image_umbrella   image_no_umbrella  last_hit_time.
         self.screen = screen
         self.x = x
         self.y = y
-        self.image_umbrella = with_umbrella_filename
-        self.image_no_umbrella = without_umbrella_filename
+        self.image_umbrella = pygame.image.load(with_umbrella_filename)  # Load image with umbrella
+        self.image_no_umbrella = pygame.image.load(without_umbrella_filename)  # Load image without umbrella
         self.last_hit_time = 0
+        self.current_image = self.image_no_umbrella  # Set initial image to image without umbrella
 
     def draw(self):
         """ Draws this sprite onto the screen. """
-
-        if time.time() - self.last_hit_time < 0.1:
-            umbimg = pygame.image.load(self.image_umbrella)
-            self.screen.blit(self.image_no_umbrella, (self.x, self.y))
-
+        if time.time() - self.last_hit_time < 0.5:
+            self.current_image = self.image_umbrella  # Change image to image with umbrella
         else:
-            numbimg = pygame.image.load(self.image_no_umbrella)
-            self.screen.blit(numbimg, (self.x, self.y))
+            self.current_image = self.image_no_umbrella  # Change image to image without umbrella
+        self.screen.blit(self.current_image, (self.x, self.y))
 
     def hit_by(self, raindrop):
         """ Returns true if the given raindrop is hitting this Hero, otherwise false. """
-
-        # DONE 19: Return True if this Hero is currently colliding with the given Raindrop.
-        return (self.x, self.y) == (raindrop.x, raindrop.y)
-
+        return pygame.Rect(self.x, self.y, self.current_image.get_width(), self.current_image.get_height()).colliderect(
+            pygame.Rect(raindrop.x, raindrop.y, 5, 5))
 
 
 class Cloud:
@@ -153,7 +140,7 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        # TODO 27: Inside the game loop (AFTER the events loop above), get the list of keys that are currently pressed.
+        # DONE 27: Inside the game loop (AFTER the events loop above), get the list of keys that are currently pressed.
         #     Arrange so that the Cloud moves:
         #       5 pixels (or 10 pixels) to the right if the Right Arrow key (pygame.K_RIGHT) is pressed.
         #       5 pixels (or 10 pixels) to the left  if the Left  Arrow key (pygame.K_LEFT)  is pressed.
@@ -200,6 +187,9 @@ def main():
         # DONE 26: Draw the Cloud.
         cloud.draw()
         # Update and draw raindrops
+
+        cloud.rain()
+
         for raindrop in cloud.raindrops:
 
             raindrop.move()
@@ -211,29 +201,18 @@ def main():
 
             elif alyssa.hit_by(raindrop):
                 alyssa.last_hit_time = time.time()
+                cloud.raindrops.remove(raindrop)
 
             elif raindrop.off_screen():
                 cloud.raindrops.remove(raindrop)
 
 
-        # TODO 29: Remove the temporary testdrop code from this function and refactor it as follows:
-        # TODO: Make the Cloud "rain", then:
-        # TODO    For each Raindrop in the Cloud's list of raindrops:
+        # DONE 29: Remove the temporary testdrop code from this function and refactor it as follows:
+        # DONE: Make the Cloud "rain", then:
+        # DONE    For each Raindrop in the Cloud's list of raindrops:
             #       - move the Raindrop.
             #       - draw the Raindrop.
-
-                # Update and draw raindrops
-        for raindrop in cloud.raindrops:
-            raindrop.move()
-            raindrop.draw()
-            if mike.hit_by(raindrop) or alyssa.hit_by(raindrop):
-                mike.last_hit_time = time.time()
-                alyssa.last_hit_time = time.time()
-                cloud.raindrops.remove(raindrop)
-            elif raindrop.off_screen():
-                cloud.raindrops.remove(raindrop)
-
-            # TODO  30: if the Hero (Mike or Alyssa) is hit by a Raindrop, set the Hero's last_time_hit to the current time.
+            # DONE  30: if the Hero (Mike or Alyssa) is hit by a Raindrop, set the Hero's last_time_hit to the current time.
             # Optional  - if the Raindrop is off the screen or hitting a Hero, remove it from the Cloud's list of raindrops.
 
         mike.draw()
