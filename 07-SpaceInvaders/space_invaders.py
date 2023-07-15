@@ -1,5 +1,6 @@
 import pygame
 import sys
+from fighter_missile_module import Fighter, Missile
 
 # TODO: when need import the fighter_missile_module
 # TODO: when need import the enemy_fleet_module

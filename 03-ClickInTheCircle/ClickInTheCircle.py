@@ -45,7 +45,7 @@ def main():
                 # DONE 5: If distance_from_circle is less than or equal to circle_radius, set message_text to 'Bullseye!'
                 if distance_from_circle <= circle_radius:
                     message_text = 'Bullseye!'
-                
+
                     # DONE 9: Start playing the music mixer looping forever if the click is within the circle
                     sound1.play(loops=-1)
 

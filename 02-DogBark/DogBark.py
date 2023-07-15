@@ -26,7 +26,7 @@ def main():
     # Prepare the text caption(s)
     # DONE 4: Create a font object with a size 28 font.
     font1 = pygame.font.SysFont("Comic Sans", 27)
-    
+
     # DONE 5: Render the text "Two Dogs" using the font object (it's like MAKING an image).
     caption1 = font1.render("Two Dogs", True, BLACK)
     # Prepare the music

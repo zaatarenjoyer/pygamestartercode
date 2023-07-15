@@ -6,13 +6,15 @@ class Missile:
         # Store the data.  Initialize:   y to 591   and   has_exploded to False.
         # Note: the 591 comes from the screen height (650) minus the ship image height (59).  Best practice would be to
         #   pass in that value in case the ship image or screen height changes, but simplified here to always be 591.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = screen.get_height() - pygame.image.load("fighter.png").get_height()
 
     def move(self):
         # Make self.y 5 smaller than it was (which will cause the Missile to move UP).
         # Note: you could've instead passed in a speed when you made a Missle, but all missles in the game are the same
         #   speed, so just using a hardcoded 5 is fine.
-        pass
+        self.y -= 5
 
     def draw(self):
         # Draw a vertical red (or green) line on the screen for the missile, 8 pixels long,  4 pixels thick
@@ -23,6 +25,9 @@ class Missile:
         # Return true if the y value of the missle is less than 0 (or -8 depending how how you draw) i.e. off the screen
         pass
 
+    def has_exploded(self):
+        pass
+
 
 class Fighter:
     def __init__(self, screen):
@@ -30,24 +35,30 @@ class Fighter:
         # Load the file  "fighter.png"  as the image
         # Set the x instance variable as the screen width / 2 - image width / 2
         # Set the y instance variable as the screen height - image height
-        # Already done   self.missiles   to the empty list. 
+        # Already done   self.missiles   to the empty list.
         # Set the colorkey to white (it has a white background that needs removed) using the method set_colorkey
+        self.screen = screen
+        self.fighter = pygame.image.load("fighter.png")
+        self.x = screen.get_width()/2 - self.fighter.get_width()/2
+        self.y = screen.get_height() - self.fighter.get_height()
         self.missiles = []
+        self.fighter.set_colorkey(pygame.color.Color(255, 255, 255))
 
     def move(self, move_amount_x):
         # Move this Fighter by the move_amount_x
         #   Limit the range from -self.image.get_width() / 2 to
         #                        self.screen.get_width() - self.image.get_width() / 2
-        pass
+        if -self.fighter.get_width()/2 <= self.x - 5 <= self.screen.get_width()-self.fighter.get_width()/2:
+            self.x += move_amount_x
 
     def draw(self):
         # Draw this Fighter, using its image at its current (x, y) position.
-        pass
+        self.screen.blit(self.fighter, (self.x, self.y-(self.y/20)))
 
     def fire(self):
         # Construct a new Missile self.image.get_width() / 2 pixels to the right of this Fighter's x position.
         # Append that Missile to this Fighter's list of Missile objects.
-        pass
+        self.missiles.append(Missile(self.screen, self.fighter.get_width()/2))
 
     def remove_exploded_missiles(self):
         # Already complete
